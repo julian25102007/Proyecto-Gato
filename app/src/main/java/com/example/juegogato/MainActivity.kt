@@ -23,13 +23,7 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContent {
-            JuegoGatoTheme {
-                Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    Box(modifier = Modifier.padding(innerPadding)) {
-                        // Llamada a la pantalla principal del juego
-                        GatoVMPage(viewModel = viewModel)
-                    }
-                }
+
             }
         }
     }
