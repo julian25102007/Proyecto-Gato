@@ -15,15 +15,18 @@ import com.example.juegogato.GatoVmpresentacion.GatoVMPage
 import com.example.juegogato.ui.theme.JuegoGatoTheme
 
 class MainActivity : ComponentActivity() {
-
-    // Instancia del ViewModel asociada al ciclo de vida de la Activity
     private val viewModel: GatoViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContent {
-
+            JuegoGatoTheme {
+                Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
+                    Box(modifier = Modifier.padding(innerPadding)) {
+                        GatoVMPage(viewModel = viewModel)
+                    }
+                }
             }
         }
     }

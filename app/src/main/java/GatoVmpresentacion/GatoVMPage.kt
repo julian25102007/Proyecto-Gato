@@ -27,7 +27,7 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 
 @Composable
 fun GatoVMPage(viewModel: GatoViewModel) {
-    // Escuchamos las variables individuales expuestas por el GatoViewModel
+
     val tablero by viewModel.tablero.collectAsStateWithLifecycle()
     val mensajeEstado by viewModel.mensajeEstado.collectAsStateWithLifecycle()
     val juegoTerminado by viewModel.juegoTerminado.collectAsStateWithLifecycle()
@@ -39,23 +39,26 @@ fun GatoVMPage(viewModel: GatoViewModel) {
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.spacedBy(16.dp)
     ) {
-        // 1. Composable: Card para mensaje informativo
+
         Card(
             modifier = Modifier.fillMaxWidth(),
             colors = CardDefaults.cardColors(
                 containerColor = if (juegoTerminado) Color(0xFFE0F7FA) else Color(0xFFF5F5F5)
+
             )
         ) {
-            // 2. Composable: Text
+
             Text(
                 text = mensajeEstado,
                 modifier = Modifier.padding(16.dp),
                 fontSize = 20.sp,
                 fontWeight = FontWeight.Bold
+
+
             )
         }
 
-        // 3. Composable: OutlinedTextField informativo de jugadores
+
         OutlinedTextField(
             value = "Jugador 1: X  |  Jugador 2: O",
             onValueChange = {},
@@ -64,13 +67,13 @@ fun GatoVMPage(viewModel: GatoViewModel) {
             modifier = Modifier.fillMaxWidth()
         )
 
-        // Componente modular para el tablero de 3x3
+
         TableroGato(
             tablero = tablero,
             onCasillaClick = { index -> viewModel.seleccionarCasilla(index) }
         )
 
-        // 4. Composable: Button para reiniciar la partida
+
         Button(
             onClick = { viewModel.reiniciarJuego() },
             modifier = Modifier.fillMaxWidth()
@@ -80,7 +83,7 @@ fun GatoVMPage(viewModel: GatoViewModel) {
     }
 }
 
-// Sub-componente con State Hoisting para construir el tablero
+
 @Composable
 fun TableroGato(
     tablero: List<String>,
@@ -96,7 +99,7 @@ fun TableroGato(
             ) {
                 for (j in 0 until 3) {
                     val index = i * 3 + j
-                    // 6. Composable: Box (Casilla individual)
+
                     CasillaGato(
                         valor = tablero[index],
                         onClick = { onCasillaClick(index) }
