@@ -1,4 +1,4 @@
-package com.example.juegogato.GatoVmpresentacion
+package com.example.juegogato.com.example.juegogato.GatoVmpresentacion
 
 import androidx.lifecycle.ViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -13,7 +13,6 @@ class GatoViewModel : ViewModel() {
     private val _puntosO = MutableStateFlow(0)
     val puntosO: StateFlow<Int> = _puntosO.asStateFlow()
 
-    // Estado del juego
     private val _tablero = MutableStateFlow(List(9) { "" })
     val tablero: StateFlow<List<String>> = _tablero.asStateFlow()
 
@@ -60,11 +59,16 @@ class GatoViewModel : ViewModel() {
         _mensajeEstado.value = "Turno de: X"
     }
 
+    fun reiniciarMarcador() {
+        _puntosX.value = 0
+        _puntosO.value = 0
+    }
+
     private fun verificarGanador(tablero: List<String>, jugador: String): Boolean {
         val combinacionesGanadoras = listOf(
-            listOf(0, 1, 2), listOf(3, 4, 5), listOf(6, 7, 8), // Filas
-            listOf(0, 3, 6), listOf(1, 4, 7), listOf(2, 5, 8), // Columnas
-            listOf(0, 4, 8), listOf(2, 4, 6)                  // Diagonales
+            listOf(0, 1, 2), listOf(3, 4, 5), listOf(6, 7, 8),
+            listOf(0, 3, 6), listOf(1, 4, 7), listOf(2, 5, 8),
+            listOf(0, 4, 8), listOf(2, 4, 6)
         )
         return combinacionesGanadoras.any { combo ->
             combo.all { index -> tablero[index] == jugador }

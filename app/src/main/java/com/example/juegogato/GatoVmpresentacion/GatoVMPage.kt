@@ -1,4 +1,4 @@
-package com.example.juegogato.GatoVmpresentacion
+package com.example.juegogato.com.example.juegogato.GatoVmpresentacion
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -24,13 +24,17 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-
+import androidx.compose.material3.ButtonDefaults
 @Composable
 fun GatoVMPage(viewModel: GatoViewModel) {
 
     val tablero by viewModel.tablero.collectAsStateWithLifecycle()
     val mensajeEstado by viewModel.mensajeEstado.collectAsStateWithLifecycle()
     val juegoTerminado by viewModel.juegoTerminado.collectAsStateWithLifecycle()
+    val puntosX by viewModel.puntosX.collectAsStateWithLifecycle()
+    val puntosO by viewModel.puntosO.collectAsStateWithLifecycle()
+
+
 
     Column(
         modifier = Modifier
@@ -73,6 +77,13 @@ fun GatoVMPage(viewModel: GatoViewModel) {
             onCasillaClick = { index -> viewModel.seleccionarCasilla(index) }
         )
 
+        Button(
+            onClick = { viewModel.reiniciarMarcador() },
+            modifier = Modifier.fillMaxWidth(),
+            colors = ButtonDefaults.buttonColors(containerColor = Color.Red)
+        ) {
+            Text("Reiniciar Marcador")
+        }
 
         Button(
             onClick = { viewModel.reiniciarJuego() },
@@ -80,6 +91,13 @@ fun GatoVMPage(viewModel: GatoViewModel) {
         ) {
             Text("Reiniciar Juego")
         }
+
+        Text(
+            text = "Marcador -> Jugador X: $puntosX  |  Jugador O: $puntosO",
+            fontSize = 16.sp,
+            fontWeight = FontWeight.Bold,
+            color = Color.DarkGray
+        )
     }
 }
 
@@ -118,8 +136,8 @@ fun CasillaGato(
     Box(
         modifier = Modifier
             .size(90.dp)
-            .background(Color.LightGray)
-            .clickable { onClick() },
+            .background(if (valor.isEmpty()) Color.LightGray else Color(0xFFE0E0E0))
+            .clickable(enabled = valor.isEmpty()) { onClick() },
         contentAlignment = Alignment.Center
     ) {
         Text(
