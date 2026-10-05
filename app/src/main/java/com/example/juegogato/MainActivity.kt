@@ -10,8 +10,8 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
 import androidx.compose.ui.Modifier
-import com.example.juegogato.com.example.juegogato.GatoVmpresentacion.GatoViewModel
-import com.example.juegogato.com.example.juegogato.GatoVmpresentacion.GatoVMPage
+import com.example.juegogato.GatoVmpresentacion.GatoViewModel
+import com.example.juegogato.GatoVmpresentacion.GatoVMPage
 import com.example.juegogato.ui.theme.JuegoGatoTheme
 
 class MainActivity : ComponentActivity() {

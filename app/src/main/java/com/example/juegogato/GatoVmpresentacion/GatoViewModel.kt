@@ -1,4 +1,4 @@
-package com.example.juegogato.com.example.juegogato.GatoVmpresentacion
+package com.example.juegogato.GatoVmpresentacion
 
 import androidx.lifecycle.ViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
