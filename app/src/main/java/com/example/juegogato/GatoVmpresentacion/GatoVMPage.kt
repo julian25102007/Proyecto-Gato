@@ -33,6 +33,9 @@ fun GatoVMPage(viewModel: GatoViewModel = viewModel()) {
     val mensajeEstado by viewModel.mensajeEstado.collectAsState()
     val puntosX by viewModel.puntosX.collectAsState()
     val puntosO by viewModel.puntosO.collectAsState()
+    val nombreCreador by viewModel.nombreCreador.collectAsState()
+    val matricula by viewModel.matricula.collectAsState()
+    val mostrarPerfil by viewModel.mostrarPerfil.collectAsState()
 
     Column(
         modifier = Modifier
@@ -47,6 +50,16 @@ fun GatoVMPage(viewModel: GatoViewModel = viewModel()) {
             modifier = Modifier.fillMaxWidth()
         ) {
             Spacer(modifier = Modifier.height(16.dp))
+
+
+            if (mostrarPerfil) {
+                Profile(
+                    nombre = nombreCreador,
+                    matricula = matricula,
+                    modifier = Modifier.padding(bottom = 16.dp)
+                )
+            }
+
             CuadroEstado(mensajeEstado = mensajeEstado)
             CuadroInformacion(puntosX = puntosX, puntosO = puntosO)
         }
@@ -58,7 +71,8 @@ fun GatoVMPage(viewModel: GatoViewModel = viewModel()) {
 
         BotonesControl(
             onReiniciarMarcador = { viewModel.reiniciarMarcador() },
-            onReiniciarJuego = { viewModel.reiniciarJuego() }
+            onReiniciarJuego = { viewModel.reiniciarJuego() },
+            onMostrarPerfil = { viewModel.profile() }
         )
     }
 }
@@ -155,7 +169,8 @@ fun TableroGato(
 @Composable
 fun BotonesControl(
     onReiniciarMarcador: () -> Unit,
-    onReiniciarJuego: () -> Unit
+    onReiniciarJuego: () -> Unit,
+    onMostrarPerfil: () -> Unit
 ) {
     Column(
         modifier = Modifier.fillMaxWidth(),
@@ -181,6 +196,64 @@ fun BotonesControl(
                 .height(48.dp)
         ) {
             Text(text = "Reiniciar Juego", color = TextWhite, fontWeight = FontWeight.Bold)
+        }
+
+        Button(
+            onClick = onMostrarPerfil,
+            colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF2E7D32)),
+            shape = RoundedCornerShape(24.dp),
+            modifier = Modifier
+                .fillMaxWidth()
+                .height(48.dp)
+        ) {
+            Text(text = "Mostrar Perfil", color = TextWhite, fontWeight = FontWeight.Bold)
+        }
+    }
+}
+
+
+@Composable
+fun Profile(
+    nombre: String,
+    matricula: String,
+    modifier: Modifier = Modifier
+) {
+    if (nombre.isNotEmpty() && matricula.isNotEmpty()) {
+        Box(
+            modifier = modifier
+                .fillMaxWidth()
+                .border(1.dp, BorderColor, RoundedCornerShape(12.dp))
+                .background(DarkSurface, RoundedCornerShape(12.dp))
+                .padding(20.dp),
+            contentAlignment = Alignment.Center
+        ) {
+            Column(
+                horizontalAlignment = Alignment.CenterHorizontally,
+                verticalArrangement = Arrangement.spacedBy(8.dp)
+            ) {
+                Text(
+                    text = "Perfil de Usuario",
+                    color = Color.Gray,
+                    fontSize = 14.sp,
+                    fontWeight = FontWeight.SemiBold
+                )
+
+                Spacer(modifier = Modifier.height(4.dp))
+
+                Text(
+                    text = "Nombre: $nombre",
+                    color = TextWhite,
+                    fontSize = 18.sp,
+                    fontWeight = FontWeight.Bold
+                )
+
+                Text(
+                    text = "Matrícula: $matricula",
+                    color = TextWhite,
+                    fontSize = 16.sp,
+                    fontWeight = FontWeight.Medium
+                )
+            }
         }
     }
 }

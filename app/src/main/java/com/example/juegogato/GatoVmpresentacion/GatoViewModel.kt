@@ -16,6 +16,15 @@ class GatoViewModel : ViewModel() {
     private val _tablero = MutableStateFlow(List(9) { "" })
     val tablero: StateFlow<List<String>> = _tablero.asStateFlow()
 
+    private val _nombreCreador = MutableStateFlow("")
+    val nombreCreador: StateFlow<String> = _nombreCreador.asStateFlow()
+
+    private val _matricula = MutableStateFlow("")
+    val matricula: StateFlow<String> = _matricula.asStateFlow()
+
+    private val _mostrarPerfil = MutableStateFlow(false)
+    val mostrarPerfil: StateFlow<Boolean> = _mostrarPerfil.asStateFlow()
+
     private val _jugadorActual = MutableStateFlow("X")
     val jugadorActual: StateFlow<String> = _jugadorActual.asStateFlow()
 
@@ -62,6 +71,13 @@ class GatoViewModel : ViewModel() {
     fun reiniciarMarcador() {
         _puntosX.value = 0
         _puntosO.value = 0
+    }
+
+
+    fun profile() {
+        _nombreCreador.value = "Julian"
+        _matricula.value = "253447"
+        _mostrarPerfil.value = true
     }
 
     private fun verificarGanador(tablero: List<String>, jugador: String): Boolean {
